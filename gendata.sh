@@ -92,7 +92,7 @@ echo '<!DOCTYPE html>
 </head>
 <body>
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" value= onchange="updateChart()">
+    <input type="date" id="startDate" onchange="updateChart()">
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" onchange="updateChart()">
     <canvas id="myChart" width="400" height="200"></canvas>' > "$INDEX_HTML"
