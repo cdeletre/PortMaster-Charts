@@ -2,15 +2,17 @@
 
 import json
 
-PMSTATS_DIR='PMstats'
-DATASTATS_JSON_PATH='www/datastats.json'
+from pathlib import Path
 
-#f_data=open('data.json','w+')
-f_commits=open('%s/commits.json' % PMSTATS_DIR, 'r')
-f_ports=open('%s/ports.json' % PMSTATS_DIR, 'r')
+PMSTATS_DIR = Path('PMstats')
+DATASTATS_JSON_PATH = Path('www/datastats.json')
 
-j_commits = json.load(f_commits)
-j_ports = json.load(f_ports)
+with open(PMSTATS_DIR / 'commits.json', 'r') as fh:
+    j_commits = json.load(fh)
+
+with open(PMSTATS_DIR / 'ports.json', 'r') as fh:
+    j_ports = json.load(fh)
+
 j_datastats={}
 
 j_datastats["ports"]=j_ports["ports"]
@@ -18,19 +20,13 @@ j_datastats["ports"]=j_ports["ports"]
 j_datastats["stats"]={}
 
 for i, commit in enumerate(reversed(j_commits)):
-    f_stats=open('%s/%s-port_stats.json' % (PMSTATS_DIR,commit["date"]), 'r')
-    j_stats=json.load(f_stats)
+    with open(PMSTATS_DIR / f"{commit["date"]}-port_stats.json",  'r') as fh:
+        j_stats=json.load(fh)
 
-    j_datastats["stats"]["%d" % i]={}
-    j_datastats["stats"]["%d" % i]["date"]=commit["date"]
-    j_datastats["stats"]["%d" % i]["ports"]=j_stats["ports"]
-    j_datastats["stats"]["%d" % i]["total_downloads"]=j_stats["total_downloads"]
+        j_datastats["stats"]["%d" % i]={}
+        j_datastats["stats"]["%d" % i]["date"]=commit["date"]
+        j_datastats["stats"]["%d" % i]["ports"]=j_stats["ports"]
+        j_datastats["stats"]["%d" % i]["total_downloads"]=j_stats["total_downloads"]
 
-    f_stats.close()
-
-f_datastats = open(DATASTATS_JSON_PATH, 'w+')
-f_datastats.write(json.dumps(j_datastats,indent=2))
-
-f_datastats.close()
-f_commits.close()
-f_ports.close()
+with open(DATASTATS_JSON_PATH,'w+') as fh:
+    fh.write(json.dumps(j_datastats,indent=2))

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPO="${PWD}/../PortMaster-Info/"
+REPO="${PWD}/../PortMaster-Info"
 PMSTATS_DIR="PMstats"
 
 WDIR="${PWD}/${PMSTATS_DIR}"
@@ -16,6 +16,10 @@ SINCE=${1:-"2023-08-05"}
 UNTIL=${2:-"$TODAY_UTC"}
 
 UNTIL=`$DATEUTIL "+%Y-%m-%d" -d "$UNTIL + 1 day"`
+
+git_pull(){
+    git -C "$1" pull --quiet 2>&1 > /dev/null
+}
 
 git_checkout_main(){
     git -C "$1" checkout --quiet main 2>&1 > /dev/null
@@ -38,6 +42,8 @@ rm -rf "${WDIR}"
 mkdir -p "${WDIR}"
 
 git_checkout_main $REPO
+git_pull $REPO
+
 cp "${REPO_PORTS_JSON}" "${WDIR}/"
 
 echo "[" > "${COMMITS_JSON}"
