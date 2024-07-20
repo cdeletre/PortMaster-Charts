@@ -6,7 +6,6 @@ This tool written in bash generates a javascript webpage that displays a graphic
 
 ## Requirement to use the tool
 
-- [jq](https://jqlang.github.io/jq/) tool. You can get it with `apt install jq` on ubuntu and `brew install jq` on macOS
 - gdate if you're a macOS user. You can get it with `brew install coreutils`
 - git. You can get it with `apt install git` on ubuntu and `brew install git` on macOS
 - a local webserver. Python3 will do it.
@@ -26,15 +25,23 @@ Then clone this repo:
 git clone https://github.com/cdeletre/PortMaster-Charts.git
 ```
 
-Then run it:
+Then the `dlstats.sh` script:
 
 ```
-./gendata.sh 2024-07-01 2024-07-19
+./dldata.sh 2024-07-01 2024-07-19
 ```
 
-Enter the directory of the day, in our example `2024-07-18`, and run a local webserver with python3:
+Then run the `gendata.py` script:
+
 ```
-cd 2024-07-18
+./gendata.py
+```
+
+
+Just run a local webserver with python3 for `www`:
+
+```
+cd www
 python3 -m http.server 8000
 ```
 

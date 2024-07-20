@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortMaster stats</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .autocomplete-suggestions {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            z-index: 1000;
+        }
+        .autocomplete-suggestion {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover,
+        .autocomplete-suggestion.active {
+            background: #f0f0f0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+</head>
+<body>
+    <div class="filters">
+        <div class="filter-item">
+            <label for="titles">Title(s):</label>
+            <input type="text" id="titles" name="titles">
+            <div id="title-suggestions" class="autocomplete-suggestions"></div>
+        </div>
+        <div class="filter-item">
+            <label for="genres">Genre(s):</label>
+            <input type="text" id="genres" name="genres">
+            <div id="genre-suggestions" class="autocomplete-suggestions"></div>
+        </div>
+        <div class="filter-item">
+            <label for="porters">Porter(s):</label>
+            <input type="text" id="porters" name="porters">
+            <div id="porter-suggestions" class="autocomplete-suggestions"></div>
+        </div>
+        <div class="filter-item">
+            <label for="readyToRun">Ready to run</label>
+            <input type="checkbox" id="readyToRun" name="readyToRun">
+        </div>
+        <div class="filter-item">
+            <label for="totalDownloads">Total Downloads</label>
+            <input type="checkbox" id="totalDownloads" name="totalDownloads">
+        </div>
+        <div class="filter-item">
+            <label for="stacked">stacked</label>
+            <input type="checkbox" id="stacked" name="stacked">
+        </div>
+        <div class="filter-item">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate">
+        </div>
+        <div class="filter-item">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate">
+        </div>
+    </div>
+    <button onclick="applyFilters()">Apply Filters</button>
+    <canvas id="chart" width="400" height="200"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
