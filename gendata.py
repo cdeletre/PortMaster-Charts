@@ -19,7 +19,7 @@ j_datastats["ports"]=j_ports["ports"]
 
 j_datastats["stats"]={}
 
-for i, commit in enumerate(reversed(j_commits)):
+for i, commit in enumerate(j_commits):
     with open(PMSTATS_DIR / f"{commit["date"]}-port_stats.json",  'r') as fh:
         j_stats=json.load(fh)
 
